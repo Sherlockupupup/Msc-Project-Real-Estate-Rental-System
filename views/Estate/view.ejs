@@ -1,0 +1,35 @@
+<!--view.ejs-->
+
+<%=Estate.Propertytitle%>,<%=Estate.ImageURL%>,<%=Estate.Estate%>,<%=Estate.Bedrooms%>,<%=Estate.GrossArea%>,<%=Estate.ExpectedTenants%>,<%=Estate.Rent%>
+
+<!--HTML FORM-->
+<!--<form method="POST" action="/Estate/delete/<%=Estate.id%>">-->
+    <button type="button" class="btn btn-danger" onclick="deleteEstate('<%=Estate.id%>')">Delete</button>
+<!--</form>-->
+
+<script>
+
+        async function deleteEstate(id) {
+    
+            // var r = confirm("Confirm Delete?");
+           
+            // if (r) {
+    
+                var response = await fetch("/Estate/delete/" + id, {
+                    method: "POST",
+                    credentials: 'same-origin',
+                });
+    
+                // var html = await response.text();
+                // alert(html);
+
+                return res.redirect("/");
+    
+            // } else {
+            //     alert("cancelled");
+            //     return res.redirect("/");
+            // }
+    
+        };
+    
+    </script>

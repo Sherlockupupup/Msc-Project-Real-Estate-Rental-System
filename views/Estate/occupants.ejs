@@ -1,0 +1,12 @@
+<h3>people who rent this house</h3>
+
+<table class="table">
+    <% var i = 0; %>
+    <% Estates.forEach( function(model) { %>
+    <%i++;%>
+    <tr>
+        <td id=><%= i %></td>
+        <td><%=model.username%></td>
+    </tr>
+    <% }); %>
+</table>

@@ -1,0 +1,96 @@
+<!--details.ejs-->
+<h1><b><%=Estate.Propertytitle%></b></h1>
+<div class="row">
+    <div class=" col-lg-8 col-sm-12">
+        <img src="<%=Estate.ImageURL%>" class="card-img-top" style="object-fit:fill" />
+    </div>
+    <div class=" col-lg-4 col-sm-12">
+        <table class="table">
+            <tr class=" col-sm-12 col-lg-12">
+                <td class="card col-lg-12">Estate:<%=Estate.Estate%></td>
+                <td class="card col-lg-12">Gross Area:<%=Estate.GrossArea%> sq feet</td>
+                <td class="card col-lg-12">Rent:$<%=Estate.Rent%></td>
+                <td class="card col-lg-12">Bedrooms:<%=Estate.Bedrooms%></td>
+                <td class="card col-lg-12">Expected Tenants:<%=Estate.ExpectedTenants%></td>
+                <td class="card col-lg-12">Created:
+                    <%=new Date(Estate.createdAt).getMonth()+1%>/<%=new Date(Estate.createdAt).getDate()%>/<%=new Date(Estate.createdAt).getFullYear()%>
+                </td>
+                <td class="card col-lg-12">Updated:
+                    <%=new Date(Estate.updatedAt).getMonth()+1%>/<%=new Date(Estate.updatedAt).getDate()%>/<%=new Date(Estate.updatedAt).getFullYear()%>
+                </td>
+            </tr>
+        </table>
+        <% if( UserRentStatus > 0 && req.session.role == "client"){ %>
+        <!--<form action="/Estate/cancel/<%=Estate.id%>" method="POST">-->
+        <button type="button" class="btn btn-danger" onclick="moveout('<%= Estate.id %>')">Move-out</button>
+        <!--</form>-->
+        <% } else if( maxTenants > numberOfClients && req.session.role == "client") {%>
+        <!--<form action="/Estate/corent/<%=Estate.id%>" method="POST">-->
+        <button type="button" class="btn btn-primary" onclick="corent('<%= Estate.id %>')">co-rent</button>
+        <!--</form>-->
+        <% } else if( maxTenants == numberOfClients ){%>
+        <!--<form action="/Estate/corent/<%=Estate.id%>" method="POST">-->
+        <button type="submit" class="btn btn-warning" disabled>full</button>
+        <!--</form>-->
+        <% }%>
+    </div>
+
+</div>
+
+<script>
+
+    async function moveout(id) {
+
+        var r = confirm("Confirm move-out?");
+
+        if (r) {
+
+            var response = await fetch("/Estate/cancel/" + id, {
+                method: "POST",
+                credentials: 'same-origin',
+            });
+
+            // var html = await response.text();
+            // alert(html);
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+
+        } else {
+            alert("cancelled");
+        }
+
+    };
+
+    async function corent(id) {
+
+        var r = confirm("Confirm corent?");
+
+        if (r) {
+
+            var response = await fetch("/Estate/corent/" + id, {
+                method: "POST",
+                credentials: 'same-origin',
+            });
+
+            // var html = await response.text();
+            // alert(html);
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+
+        } else {
+            alert("cancelled");
+        }
+
+    };
+
+</script>

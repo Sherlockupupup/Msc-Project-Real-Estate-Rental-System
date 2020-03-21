@@ -1,0 +1,49 @@
+<!--index.ejs for admin action-->
+<table class="table">
+    <% var i = 0; %>
+    <!--set IDs to each item, let it ascend from "1"-->
+    <% Estates.forEach( function(model) { %>
+    <%i++;%>
+    <tr>
+        <td id=><%= i %></td>
+        <td><a href="http://localhost:1337/Estate/details/<%=model.id%>"><%=model.Propertytitle%></a></td>
+        <td><%=model.Estate%></td>
+        <td><a href="http://localhost:1337/Estate/occupants/<%=model.id%>">Occupants</a></td>
+        <td><a href="http://localhost:1337/Estate/update/<%=model.id%>">Edit</a></td>
+        <td><button type="button" class="btn btn-danger" onclick="deleteEstate('<%=model.id%>')">Delete</button></td>
+    </tr>
+    <% }); %>
+</table>
+
+<script>
+
+    async function deleteEstate(id) {
+
+        var r = confirm("Confirm Delete?");
+
+        if (r) {
+
+            var response = await fetch("/Estate/" + id, {
+                method: "DELETE",
+                credentials: 'same-origin',
+            });
+
+            // var html = await response.text();
+            // alert(html);
+
+            if (response.ok) {
+                var data = await response.json();
+                alert(data.message);
+                window.location = data.url;
+                
+            } else {
+                alert(response.status + ": " + response.statusText);
+            }
+
+        } else {
+            alert("cancelled");
+        }
+
+    };
+
+</script>

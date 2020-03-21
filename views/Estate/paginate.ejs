@@ -1,0 +1,85 @@
+<!--paginate.ejs-->
+<div class="row">
+    <% Estates.forEach( function(model) { %>
+    <div class="card col-lg-4 col-sm-12">
+        <table class="table">
+            <tr class="card col-sm-12 col-lg-12">
+                <td><img src="<%=model.ImageURL%>" class="card-img-top" style="object-fit:fill"/></td>
+                <td><a href="http://localhost:1337/Estate/details/<%=model.id%>"><%=model.Propertytitle%></a></td>
+                <td class="card col-lg-12">Estate:<%=model.Estate%></td>
+                <td class="card col-lg-12">Gross Area:<%=model.GrossArea%> sq feet</td>
+                <td class="card col-lg-12">Rent:$<%=model.Rent%></td>
+            </tr>
+        </table>
+        
+    </div>
+    <% }); %>
+
+    <div class="col-lg-4 col-sm-12">
+        <% const current = parseInt(req.query.page) || 1; %>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="/Estate/paginate/?page=<%= Math.max(current-1, 1) %>&Estate=<%=req.query.Estate%>&Bedrooms=<%=req.query.Bedrooms%>&GrossAreaMin=<%=req.query.GrossAreaMin%>&GrossAreaMax=<%=req.query.GrossAreaMax%>&RentMin=<%=req.query.RentMin%>&RentMax=<%=req.query.RentMax%>">Previous</a>
+                </li>
+
+                <% for (i = 1; i <= count; i++) { %>
+                <li class="page-item">
+                    <a class="page-link" href="/Estate/paginate/?page=<%= i %>&Estate=<%=req.query.Estate%>&Bedrooms=<%=req.query.Bedrooms%>&GrossAreaMin=<%=req.query.GrossAreaMin%>&GrossAreaMax=<%=req.query.GrossAreaMax%>&RentMin=<%=req.query.RentMin%>&RentMax=<%=req.query.RentMax%>"><%= i %></a>
+                </li>
+                <% } %>
+
+                <li class="page-item">
+                    <a class="page-link" href="/Estate/paginate/?page=<%= Math.min(current+1, count) %>&Estate=<%=req.query.Estate%>&Bedrooms=<%=req.query.Bedrooms%>&GrossAreaMin=<%=req.query.GrossAreaMin%>&GrossAreaMax=<%=req.query.GrossAreaMax%>&RentMin=<%=req.query.RentMin%>&RentMax=<%=req.query.RentMax%>">Next</a>
+                </li>
+            </ul>
+        </nav>
+        <h3>Property Search</h3>
+        <form class="form-horizontal" role="form">
+            <div class="row">
+                <label class="col-2">Estate:</label>
+                <div class="col-10">
+                    <select type="text" class="form-control" name="Estate">
+                        <option value="">Please estate here</option>
+                        <option value="Calson Court">Calson Court</option>
+                        <option value="Taikoo Shing">Taikoo Shing</option>
+                        <option value="City One">City One</option>
+                        <option value="Festival City">Festival City</option>
+                        <option value="Gold Coast">Gold Coast</option>
+                        <option value="Yau Ma Tei">Yau Ma Tei</option>
+                    </select><br>
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-3">Bedrooms:</label>
+                <div class="col-9">
+                    <input type="number" class="form-control" min=1 max=6 name="Bedrooms"><br>
+                </div>
+            </div>
+            <label>Area(Sq feet):</label>
+            <div class="row">
+                <label class="col-2">Min:</label>
+                <div class="col-4">
+                    <input type="number" class="form-control" min=0 max=5000 name="GrossAreaMin">
+                </div>
+                <label class="col-2">Max:</label>
+                <div class="col-4">
+                    <input type="number" class="form-control" min=0 max=5000 name="GrossAreaMax"><br>
+                </div>
+            </div>
+            <label>Rent(HK$):</label>
+            <div class="row">
+                <label class="col-2">Min:</label>
+                <div class="col-4">
+                    <input type="number" class="form-control" min=0 max=50000 step=100 name="RentMin">
+                </div>
+                <label class="col-2">Max:</label>
+                <div class="col-4">
+                    <input type="number" class="form-control" min=0 max=50000 step=100 name="RentMax"><br>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</div>

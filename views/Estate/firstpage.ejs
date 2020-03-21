@@ -1,0 +1,24 @@
+<!--firstpage.ejs-->
+<div class="row">
+    <% Estates.forEach( function(model) { %>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="card">
+            <div class="row">
+                <div class="col-5">
+                    <h6 style="margin-left:20px;margin-top:14px"><a href="http://localhost:1337/Estate/details/<%=model.id%>"><%=model.Propertytitle%></a></h6>
+                    <img src="<%=model.ImageURL%>" class="card-img-top" style="object-fit:fill;margin-left: 20px;margin-bottom:5px;" />
+
+
+                </div>
+                <div class="col">
+                    <ul style="margin-top:40px;margin-right: 20px;margin-left: -20px">
+                        <li class="list-group-item">Estate:<%=model.Estate%></li>
+                        <li class="list-group-item">Gross Area:<%=model.GrossArea%> sq feet</li>
+                        <li class="list-group-item">Rent:$<%=model.Rent%></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+</div>

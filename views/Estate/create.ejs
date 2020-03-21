@@ -1,0 +1,57 @@
+<!--create.ejs-->
+<h3><b>Property Create form</b></h3>
+<form action="/Estate/create" method="POST">
+    <div class="row">
+        <div class="col-lg-6 col-sm-12" id="div01" >
+            <label>Property title:</label>
+            <input type="text" class="form-control" name="Estate[Propertytitle]" required>
+        </div>
+        <div class="col-lg-6 col-sm-12" id="div02">
+            <label>Image URL:</label>
+            <input type="text" class="form-control" name="Estate[ImageURL]" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12" id="div03">
+            <label>Estate:</label>
+            <select type="text" class="form-control" name="Estate[Estate]" required>
+                    <option value="">Please select one estate</option>
+                    <option value ="Calson Court">Calson Court</option>
+                    <option value ="Taikoo Shing">Taikoo Shing</option>
+                    <option value="City One">City One</option>
+                    <option value="Festival City">Festival City</option>
+                    <option value="Gold Coast">Gold Coast</option>
+                    <option value="Yau Ma Tei">Yau Ma Tei</option>
+            </select>
+        </div>
+        <div class="col-lg-6 col-sm-12" id="div04">
+            <label>Bedrooms:</label>
+            <input type="number" class="form-control" min=1 max=6 name="Estate[Bedrooms]" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12" id="div05">
+            <label>Gross Area(Sq feet):</label>
+            <input type="number" class="form-control" min=100 max=5000 name="Estate[GrossArea]" required>
+        </div>
+        <div class="col-lg-6 col-sm-12" id="div06">
+            <label>Expected Tenants:</label>
+            <input type="number" class="form-control" min=1 max=8 name="Estate[ExpectedTenants]" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12" id="div07">
+            <label>Rent(HK$):</label>
+            <input type="number" class="form-control" min=1000 max=500000 step=100 name="Estate[Rent]" required>
+        </div>
+        <div class="col-lg-6 col-sm-12" id="div08">
+            <input name="Estate[Highlighted]" type="checkbox">
+            <label>Highlighted Property</label><br><br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+
+        
+    
+    
+</form>
